@@ -21521,8 +21521,12 @@
 	
 	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
-	        _this.state = _ContactsStore2.default.all;
+	        _this.state = {
+	            contacts: _ContactsStore2.default.all
+	        };
+	        _this.filterString = "";
 	        _this.onChange = _this.onChange.bind(_this);
+	        _this.onFilter = _this.onFilter.bind(_this);
 	        return _this;
 	    }
 	
@@ -21539,19 +21543,52 @@
 	    }, {
 	        key: "onChange",
 	        value: function onChange() {
-	            this.setState(_ContactsStore2.default.all);
+	            this.setState({
+	                contacts: this.getFilteredContacts(_ContactsStore2.default.all, this.filterString)
+	            });
+	        }
+	    }, {
+	        key: "getFilteredContacts",
+	        value: function getFilteredContacts(allContacts, filterString) {
+	            var contacts = [];
+	            for (var key in allContacts) {
+	                contacts.push(allContacts[key]);
+	            }
+	
+	            if (filterString != "") {
+	                contacts = contacts.filter(function (x) {
+	                    if (x.name.toLowerCase().includes(filterString) || x.surname.toLowerCase().includes(filterString) || x.phone.includes(filterString) || x.email.toLowerCase().includes(filterString)) {
+	                        return true;
+	                    }
+	                    return false;
+	                });
+	            }
+	            contacts.sort(function (a, b) {
+	                return a.name > b.name;
+	            });
+	
+	            return contacts;
+	        }
+	    }, {
+	        key: "onFilter",
+	        value: function onFilter(e) {
+	            this.filterString = e.currentTarget.value.toLowerCase().trim();
+	
+	            this.setState({
+	                contacts: this.getFilteredContacts(_ContactsStore2.default.all, this.filterString)
+	            });
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var contacts = [_react2.default.createElement(
+	            var list = [_react2.default.createElement(
 	                "li",
 	                { key: "new" },
 	                _react2.default.createElement(_NewCard2.default, { create: _ContactsActions2.default.create, edit: true })
 	            )];
-	            for (var key in this.state) {
-	                var obj = this.state[key];
-	                contacts.push(_react2.default.createElement(
+	            for (var key in this.state.contacts) {
+	                var obj = this.state.contacts[key];
+	                list.push(_react2.default.createElement(
 	                    "li",
 	                    { key: obj.id },
 	                    _react2.default.createElement(_Card2.default, _extends({ del: _ContactsActions2.default.del, update: _ContactsActions2.default.update }, obj))
@@ -21566,10 +21603,11 @@
 	                    null,
 	                    "CRUD CONTACTS BOOK"
 	                ),
+	                _react2.default.createElement("input", { type: "text", onChange: this.onFilter }),
 	                _react2.default.createElement(
 	                    "ul",
 	                    null,
-	                    contacts
+	                    list
 	                )
 	            );
 	        }
@@ -22555,11 +22593,7 @@
 	                        }
 	                    })
 	                ),
-	                this.state.edit ? _react2.default.createElement(
-	                    "button",
-	                    { onClick: this.onClickSubmit },
-	                    "Submit"
-	                ) : _react2.default.createElement(
+	                this.state.edit ? _react2.default.createElement("input", { type: "submit", onClick: this.onClickSubmit, value: "Submit" }) : _react2.default.createElement(
 	                    "button",
 	                    { onClick: this.onClickEdit },
 	                    "Edit"
