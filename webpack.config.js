@@ -5,6 +5,7 @@ module.exports =  {
         path: __dirname,
         filename: "client/public/final.js"
     },
+    devtool: "source-map",
     module: {
         loaders: [
             { test: /\.js$/, loaders: ["babel"], exclude: /node_modules/ },

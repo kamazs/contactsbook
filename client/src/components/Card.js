@@ -47,6 +47,7 @@ export default class Card extends PureComponent {
     }
 
     onClickSubmit() {
+        console.log("props: ", this.props, "state:", this.state);
         if (this.props.update){
             this.props.update(this.props.id, {
                 name: this.state.name,
@@ -82,6 +83,7 @@ export default class Card extends PureComponent {
                 <span>Phone: </span>
                 <EditableLabel 
                     text={this.state.phone} 
+                    type="tel"
                     edit={this.state.edit} 
                     onChange={ txt=>{ this.state.phone = txt }}
                 />
@@ -91,6 +93,7 @@ export default class Card extends PureComponent {
                 <EditableLabel 
                     text={this.state.email} 
                     edit={this.state.edit} 
+                    type="email"
                     onChange={ txt=>{ this.state.email = txt }}
                 />
             </div>

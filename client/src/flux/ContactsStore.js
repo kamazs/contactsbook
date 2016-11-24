@@ -17,7 +17,7 @@ class ContactsStore extends Events.EventEmitter {
 
     handleAction(payload) {
         const action = payload.action;
-
+        console.log("action:", action);
         switch (action.actionType){
             case ContactsConstants.CONTACT_CREATE:
                 this.create(action.params);
@@ -37,6 +37,7 @@ class ContactsStore extends Events.EventEmitter {
     }
 
     create(data) {
+        console.log("create.data: ", data);
         this.contacts[this.lastID] = Object.assign( {id: this.lastID}, data );
         this.lastID++;
     }

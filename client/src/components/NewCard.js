@@ -4,35 +4,32 @@ import Card from "./Card.js";
 export default class NewCard extends PureComponent {
     constructor(props){
         super(props);
-        this.state = {
+        this.state  ={
             compact: true
-        }
+        };
         this.onClick = this.onClick.bind(this);
+        this.createCall = this.createCall.bind(this);
     }
-
-    /*componentWillReceiveProps(props){
-        this.setState({
-            compact: props.compact
-        });
-        this.super(props);
-    }*/
 
     onClick() {
         this.setState({
-            compact: false
+            compact: !this.state.compact
         });
     }
 
-    onSubmit() {
-        if (this.props.update){
-            this.props.update();
+    createCall(id, data){
+        if (this.props.create){
+            this.props.create( data );
         }
+        this.setState({
+            compact: true
+        });
     }
 
     render() {
         if (this.state.compact){
             return <button onClick={this.onClick}>+ Add new contact</button>;
         }
-        return <Card {...this.props} update={this.onSubmit}/>;
+        return <Card name="" surname="" phone="" email="" edit={true} update={this.createCall} del={this.onClick}/>;
     }
 } 

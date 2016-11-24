@@ -24,7 +24,7 @@ export default class App extends Component {
     }
 
     render(){
-        let contacts = [<li key="new"><NewCard update={ContactsActions.create} edit={true}/></li>];
+        let contacts = [<li key="new"><NewCard create={ContactsActions.create} edit={true}/></li>];
         for (let key in this.state){
             const obj = this.state[key];
             contacts.push(

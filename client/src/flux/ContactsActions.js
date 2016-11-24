@@ -3,6 +3,7 @@ import ContactsConstants from "./ContactsConstants.js";
 
 class ContactsActions {
     create(data){
+        console.log("data @ ActionCr: ", data);
         AppDispatcher.handleViewAction({
             actionType: ContactsConstants.CONTACT_CREATE,
             params: data
