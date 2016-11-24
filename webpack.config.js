@@ -1,8 +1,9 @@
 module.exports =  {
-    entry: ["webpack-dev-server/client?http://localhost:8080/webpack-dev-server/public", "./src/main.js"],
+    //entry: ["webpack-dev-server/client?http://localhost:8080/webpack-dev-server/public/final", "./client/src/main.js"],
+    entry: "./client/src/main.js",
     output: {
         path: __dirname,
-        filename: "public/final.js"
+        filename: "client/public/final.js"
     },
     module: {
         loaders: [
