@@ -73,7 +73,7 @@ export default class Card extends PureComponent {
                         ? <button onClick={this.onClickSubmit} className="tools">Submit</button>
                         : <button onClick={this.onClickEdit} className="tools">Edit</button>
                 }
-                <button onClick={this.onClickDelete} className="tools">{this.state.edit ? "Cancel" : "Delete"}</button>
+                <button onClick={this.onClickDelete} className="tools">{this.state.edit ? "Cancel" : " X "}</button>
             </div>
             <Entry 
                 caption="Name"
@@ -97,6 +97,7 @@ export default class Card extends PureComponent {
                 caption="e-mail"
                 edit={this.state.edit} 
                 text={this.state.email}
+                type="email"
                 placeholder="example@email.com"
                 onChange={ txt=>{ this.state.email = txt }}/>
         </div>

@@ -9,6 +9,7 @@ export default (props)=>{
             <EditableLabel 
                 text={props.text} 
                 edit={props.edit} 
+                type={props.type}
                 placeholder={props.placeholder}
                 onChange={props.onChange}
             />

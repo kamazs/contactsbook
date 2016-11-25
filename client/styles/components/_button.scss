@@ -5,20 +5,21 @@ button {
     font-size: 12px;
     box-shadow: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 button:focus {
     outline: none;
 }
 
-$tools-color-normal: #6496c8;
+$tools-color-normal: white;
 $tools-color-hover: #346392;
 $tools-color-active: #27496d;
 
 button.tools {
     color: $tools-color-normal;
     background: rgba(0,0,0,0);
-    border: solid 5px $tools-color-normal;
+    border: solid 2px $tools-color-normal;
     border-radius: 20px;
 }
 button.tools:hover,
@@ -43,6 +44,8 @@ button.new {
     border: solid 5px $new-color-normal;
     border-radius: 120px;
     font-size: 32px;
+    width: 100%;
+    height: 100%;
 }
 button.new:hover,
 button.new.hover {

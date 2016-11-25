@@ -27,7 +27,7 @@ export default class EditableLabel extends PureComponent {
     render() {
         const text = this.state.text;
         if (!this.props.edit){
-            return <span>{text}</span>
+            return <span>{this.props.type === "email" ? <a href={"mailto:" + text}>{text}</a> : text}</span>
         } 
         return <input className="field" type={this.props.type || "text"} value={text} placeholder={this.props.placeholder} onChange={this.onChange}/>;
     }

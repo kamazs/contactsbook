@@ -62,7 +62,7 @@ export default class App extends Component {
     }
 
     render(){
-        let list = [<NewCard key="new" create={ContactsActions.create}/>];
+        let list = [];//[<NewCard key="new" create={ContactsActions.create}/>];
         for (let key in this.state.contacts){
             let obj = this.state.contacts[key];
             list.push(
@@ -71,13 +71,17 @@ export default class App extends Component {
         }
 
         return <div>
-            <div className="header-container">
-                <h1>CRUD CONTACTS BOOK</h1>
-                <input className="searchbar" type="text" onChange={this.onFilter} placeholder="Start typing here to filter contacts..."/>
+            <div className="app-container">
+                <div className="header-container">
+                    <h1>CRUD CONTACTS BOOK</h1>
+                    <input className="searchbar" type="text" onChange={this.onFilter} placeholder="Start typing here to filter contacts..."/>
+                </div>
+                <div className="contacts-container">
+                    {list}
+                </div>
+                <NewCard key="new" create={ContactsActions.create}/>
             </div>
-            <div className="contactsContainer">
-                {list}
-            </div>
+            
         </div>;
     }
 }
