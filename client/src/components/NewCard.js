@@ -1,14 +1,11 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import Card from "./Card.js";
 
-export default class NewCard extends PureComponent {
+export default class NewCard extends Card {
     constructor(props){
         super(props);
-        this.state  ={
-            compact: true
-        };
+        this.state = Object.assign({compact: true, edit: true}, this.state);
         this.onClick = this.onClick.bind(this);
-        this.createCall = this.createCall.bind(this);
     }
 
     onClick() {
@@ -17,19 +14,23 @@ export default class NewCard extends PureComponent {
         });
     }
 
-    createCall(id, data){
+    onClickSubmit() {
+        console.log("New card overrided function call");
         if (this.props.create){
-            this.props.create( data );
+            this.props.create({
+                name: this.state.name, 
+                surname: this.state.surname,
+                phone: this.state.phone, 
+                email: this.state.email
+            });
         }
-        this.setState({
-            compact: true
-        });
+        this.setState({compact:true});
     }
 
-    render() {
+    render(){
         if (this.state.compact){
-            return <button onClick={this.onClick}>+ Add new contact</button>;
+            return <button onClick={this.onClick}> + Add new contact</button>
         }
-        return <Card name="" surname="" phone="" email="" edit={true} update={this.createCall} del={this.onClick}/>;
+        return super.render();
     }
-} 
+}

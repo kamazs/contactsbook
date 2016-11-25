@@ -31,7 +31,6 @@ export default class Card extends PureComponent {
             email: newProps.email,
             edit: newProps.edit
         });
-        super.componentWillReceiveProps(newProps);
     }
 
     onClickDelete(){

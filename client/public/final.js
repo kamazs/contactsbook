@@ -22434,8 +22434,6 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -22487,7 +22485,7 @@
 	                email: newProps.email,
 	                edit: newProps.edit
 	            });
-	            _get(Card.prototype.__proto__ || Object.getPrototypeOf(Card.prototype), "componentWillReceiveProps", this).call(this, newProps);
+	            //super.componentWillReceiveProps(newProps);
 	        }
 	    }, {
 	        key: "onClickDelete",
@@ -22593,7 +22591,11 @@
 	                        }
 	                    })
 	                ),
-	                this.state.edit ? _react2.default.createElement("input", { type: "submit", onClick: this.onClickSubmit, value: "Submit" }) : _react2.default.createElement(
+	                this.state.edit ? _react2.default.createElement(
+	                    "button",
+	                    { onClick: this.onClickSubmit },
+	                    "Submit"
+	                ) : _react2.default.createElement(
 	                    "button",
 	                    { onClick: this.onClickEdit },
 	                    "Edit"
@@ -22645,7 +22647,7 @@
 	        var _this = _possibleConstructorReturn(this, (EditableLabel.__proto__ || Object.getPrototypeOf(EditableLabel)).call(this, props));
 	
 	        _this.state = {
-	            text: props.text
+	            text: props.text || ""
 	        };
 	        _this.onChange = _this.onChange.bind(_this);
 	        return _this;
@@ -22679,7 +22681,7 @@
 	                    text
 	                );
 	            }
-	            console.log("this.props.type:", this.props.type);
+	            console.log("this.props.text: **" + this.props.text + "**");
 	            return _react2.default.createElement("input", { type: this.props.type || "text", value: text, onChange: this.onChange });
 	        }
 	    }]);
@@ -22706,13 +22708,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Card = __webpack_require__(186);
+	var _Card2 = __webpack_require__(186);
 	
-	var _Card2 = _interopRequireDefault(_Card);
+	var _Card3 = _interopRequireDefault(_Card2);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22722,19 +22726,16 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var NewCard = function (_PureComponent) {
-	    _inherits(NewCard, _PureComponent);
+	var NewCard = function (_Card) {
+	    _inherits(NewCard, _Card);
 	
 	    function NewCard(props) {
 	        _classCallCheck(this, NewCard);
 	
 	        var _this = _possibleConstructorReturn(this, (NewCard.__proto__ || Object.getPrototypeOf(NewCard)).call(this, props));
 	
-	        _this.state = {
-	            compact: true
-	        };
+	        _this.state = Object.assign({ compact: true, edit: true }, _this.state);
 	        _this.onClick = _this.onClick.bind(_this);
-	        _this.createCall = _this.createCall.bind(_this);
 	        return _this;
 	    }
 	
@@ -22746,14 +22747,18 @@
 	            });
 	        }
 	    }, {
-	        key: "createCall",
-	        value: function createCall(id, data) {
+	        key: "onClickSubmit",
+	        value: function onClickSubmit() {
+	            console.log("New card overrided function call");
 	            if (this.props.create) {
-	                this.props.create(data);
+	                this.props.create({
+	                    name: this.state.name,
+	                    surname: this.state.surname,
+	                    phone: this.state.phone,
+	                    email: this.state.email
+	                });
 	            }
-	            this.setState({
-	                compact: true
-	            });
+	            this.setState({ compact: true });
 	        }
 	    }, {
 	        key: "render",
@@ -22762,15 +22767,15 @@
 	                return _react2.default.createElement(
 	                    "button",
 	                    { onClick: this.onClick },
-	                    "+ Add new contact"
+	                    " + Add new contact"
 	                );
 	            }
-	            return _react2.default.createElement(_Card2.default, { name: "", surname: "", phone: "", email: "", edit: true, update: this.createCall, del: this.onClick });
+	            return _get(NewCard.prototype.__proto__ || Object.getPrototypeOf(NewCard.prototype), "render", this).call(this);
 	        }
 	    }]);
 	
 	    return NewCard;
-	}(_react.PureComponent);
+	}(_Card3.default);
 	
 	exports.default = NewCard;
 
