@@ -4,7 +4,7 @@ export default class EditableLabel extends PureComponent {
     constructor(props){
         super(props);
         this.state = {
-            text: props.text
+            text: props.text || ""
         };
         this.onChange = this.onChange.bind(this);
     }
@@ -29,7 +29,7 @@ export default class EditableLabel extends PureComponent {
         if (!this.props.edit){
             return <span>{text}</span>
         } 
-        console.log("this.props.type:", this.props.type);
+        console.log("this.props.text: **" + this.props.text + "**");
         return <input type={this.props.type || "text"} value={text} onChange={this.onChange}/>;
     }
 }
