@@ -21513,6 +21513,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	__webpack_require__(189);
+	
 	var App = function (_Component) {
 	    _inherits(App, _Component);
 	
@@ -21581,18 +21583,10 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var list = [_react2.default.createElement(
-	                "li",
-	                { key: "new" },
-	                _react2.default.createElement(_NewCard2.default, { create: _ContactsActions2.default.create, edit: true })
-	            )];
+	            var list = [_react2.default.createElement(_NewCard2.default, { key: "new", create: _ContactsActions2.default.create, edit: true })];
 	            for (var key in this.state.contacts) {
 	                var obj = this.state.contacts[key];
-	                list.push(_react2.default.createElement(
-	                    "li",
-	                    { key: obj.id },
-	                    _react2.default.createElement(_Card2.default, _extends({ del: _ContactsActions2.default.del, update: _ContactsActions2.default.update }, obj))
-	                ));
+	                list.push(_react2.default.createElement(_Card2.default, _extends({ key: obj.id, del: _ContactsActions2.default.del, update: _ContactsActions2.default.update }, obj)));
 	            }
 	
 	            return _react2.default.createElement(
@@ -21605,8 +21599,8 @@
 	                ),
 	                _react2.default.createElement("input", { type: "text", onChange: this.onFilter }),
 	                _react2.default.createElement(
-	                    "ul",
-	                    null,
+	                    "div",
+	                    { className: "contactsContainer" },
 	                    list
 	                )
 	            );
@@ -22485,7 +22479,6 @@
 	                email: newProps.email,
 	                edit: newProps.edit
 	            });
-	            //super.componentWillReceiveProps(newProps);
 	        }
 	    }, {
 	        key: "onClickDelete",
@@ -22524,86 +22517,86 @@
 	
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "card" },
 	                _react2.default.createElement(
-	                    "div",
+	                    "form",
 	                    null,
 	                    _react2.default.createElement(
-	                        "span",
+	                        "div",
 	                        null,
-	                        "Name: "
+	                        _react2.default.createElement(
+	                            "span",
+	                            null,
+	                            "Name: "
+	                        ),
+	                        _react2.default.createElement(_EditableLabel2.default, {
+	                            text: this.state.name,
+	                            edit: this.state.edit,
+	                            onChange: function onChange(txt) {
+	                                _this2.state.name = txt;
+	                            }
+	                        })
 	                    ),
-	                    _react2.default.createElement(_EditableLabel2.default, {
-	                        text: this.state.name,
-	                        edit: this.state.edit,
-	                        onChange: function onChange(txt) {
-	                            _this2.state.name = txt;
-	                        }
-	                    })
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
 	                    _react2.default.createElement(
-	                        "span",
+	                        "div",
 	                        null,
-	                        "Surname: "
+	                        _react2.default.createElement(
+	                            "span",
+	                            null,
+	                            "Surname: "
+	                        ),
+	                        _react2.default.createElement(_EditableLabel2.default, {
+	                            text: this.state.surname,
+	                            edit: this.state.edit,
+	                            onChange: function onChange(txt) {
+	                                _this2.state.surname = txt;
+	                            }
+	                        })
 	                    ),
-	                    _react2.default.createElement(_EditableLabel2.default, {
-	                        text: this.state.surname,
-	                        edit: this.state.edit,
-	                        onChange: function onChange(txt) {
-	                            _this2.state.surname = txt;
-	                        }
-	                    })
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
 	                    _react2.default.createElement(
-	                        "span",
+	                        "div",
 	                        null,
-	                        "Phone: "
+	                        _react2.default.createElement(
+	                            "span",
+	                            null,
+	                            "Phone: "
+	                        ),
+	                        _react2.default.createElement(_EditableLabel2.default, {
+	                            text: this.state.phone,
+	                            type: "tel",
+	                            edit: this.state.edit,
+	                            onChange: function onChange(txt) {
+	                                _this2.state.phone = txt;
+	                            }
+	                        })
 	                    ),
-	                    _react2.default.createElement(_EditableLabel2.default, {
-	                        text: this.state.phone,
-	                        type: "tel",
-	                        edit: this.state.edit,
-	                        onChange: function onChange(txt) {
-	                            _this2.state.phone = txt;
-	                        }
-	                    })
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    null,
 	                    _react2.default.createElement(
-	                        "span",
+	                        "div",
 	                        null,
-	                        "e-mail: "
+	                        _react2.default.createElement(
+	                            "span",
+	                            null,
+	                            "e-mail: "
+	                        ),
+	                        _react2.default.createElement(_EditableLabel2.default, {
+	                            text: this.state.email,
+	                            edit: this.state.edit,
+	                            type: "email",
+	                            onChange: function onChange(txt) {
+	                                _this2.state.email = txt;
+	                            }
+	                        })
 	                    ),
-	                    _react2.default.createElement(_EditableLabel2.default, {
-	                        text: this.state.email,
-	                        edit: this.state.edit,
-	                        type: "email",
-	                        onChange: function onChange(txt) {
-	                            _this2.state.email = txt;
-	                        }
-	                    })
-	                ),
-	                this.state.edit ? _react2.default.createElement(
-	                    "button",
-	                    { onClick: this.onClickSubmit },
-	                    "Submit"
-	                ) : _react2.default.createElement(
-	                    "button",
-	                    { onClick: this.onClickEdit },
-	                    "Edit"
-	                ),
-	                _react2.default.createElement(
-	                    "button",
-	                    { onClick: this.onClickDelete },
-	                    "Delete"
+	                    this.state.edit ? _react2.default.createElement("input", { onClick: this.onClickSubmit, type: "submit", value: "Submit" }) : _react2.default.createElement(
+	                        "button",
+	                        { onClick: this.onClickEdit },
+	                        "Edit"
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { onClick: this.onClickDelete },
+	                        "Delete"
+	                    )
 	                )
 	            );
 	        }
@@ -22761,13 +22754,22 @@
 	            this.setState({ compact: true });
 	        }
 	    }, {
+	        key: "onClickDelete",
+	        value: function onClickDelete() {
+	            this.onClick();
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            if (this.state.compact) {
 	                return _react2.default.createElement(
-	                    "button",
-	                    { onClick: this.onClick },
-	                    " + Add new contact"
+	                    "div",
+	                    { className: "card" },
+	                    _react2.default.createElement(
+	                        "button",
+	                        { className: "new", onClick: this.onClick },
+	                        " + Add new contact"
+	                    )
 	                );
 	            }
 	            return _get(NewCard.prototype.__proto__ || Object.getPrototypeOf(NewCard.prototype), "render", this).call(this);
@@ -22814,7 +22816,7 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "html {\n  box-sizing: border-box; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 16px; }\n\n.contactsContainer {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px; }\n\n.card {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  width: 250px;\n  height: 150px;\n  padding: 5px;\n  margin: 2px;\n  border-radius: 5px;\n  background-color: #ffffcc;\n  border-width: 1px;\n  border-color: #B6BA18; }\n\nbutton.new {\n  width: 100%;\n  height: 100%; }\n", ""]);
 	
 	// exports
 

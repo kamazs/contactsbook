@@ -27,9 +27,13 @@ export default class NewCard extends Card {
         this.setState({compact:true});
     }
 
+    onClickDelete(){
+        this.onClick();
+    }
+
     render(){
         if (this.state.compact){
-            return <button onClick={this.onClick}> + Add new contact</button>
+            return <div className="card"><button className="new" onClick={this.onClick}> + Add new contact</button></div>
         }
         return super.render();
     }

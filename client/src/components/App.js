@@ -4,6 +4,8 @@ import ContactsActions from "../flux/ContactsActions.js";
 import Card from "./Card.js";
 import NewCard from "./NewCard.js";
 
+require("../../styles/main.scss");
+
 export default class App extends Component {
     constructor(props){
         super(props);
@@ -60,20 +62,20 @@ export default class App extends Component {
     }
 
     render(){
-        let list = [<li key="new"><NewCard create={ContactsActions.create} edit={true}/></li>];
+        let list = [<NewCard key="new" create={ContactsActions.create} edit={true}/>];
         for (let key in this.state.contacts){
             let obj = this.state.contacts[key];
             list.push(
-                <li key={obj.id}><Card del={ContactsActions.del} update={ContactsActions.update} {...obj}/></li>
+                <Card key={obj.id} del={ContactsActions.del} update={ContactsActions.update} {...obj}/>
             );
         }
 
         return <div>
             <h1>CRUD CONTACTS BOOK</h1>
             <input type="text" onChange={this.onFilter}/>
-            <ul>
+            <div className="contactsContainer">
                 {list}
-            </ul>
+            </div>
         </div>;
     }
 }

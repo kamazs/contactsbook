@@ -61,7 +61,7 @@ export default class Card extends PureComponent {
     }
 
     render() {
-        return <div>
+        return <div className="card">
             <div>
                 <span>Name: </span>
                 <EditableLabel 
