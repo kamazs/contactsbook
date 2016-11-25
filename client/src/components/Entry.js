@@ -4,7 +4,7 @@ import EditableLabel from "./EditableLabel.js";
 
 export default (props)=>{
     return <HideEmpty forceVisible={props.edit} value={props.text}>
-        <div className="keypair">
+        <div className="keypair-container">
             <span className="label-key">{props.caption}: </span>
             <EditableLabel 
                 text={props.text} 

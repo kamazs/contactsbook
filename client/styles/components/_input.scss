@@ -4,7 +4,6 @@ input[type="text"] {
     font-size: 14px;
     box-shadow: none;
     border-radius: none;
-    background-color: white;
 }
 input[type="text"]:focus,
 input[type="text"].focus {
@@ -13,14 +12,18 @@ input[type="text"].focus {
 
 .field {
     padding: 2px;
-    border: solid 1px #dcdcdc;
-    transition: box-shadow 0.3s, border 0.3s;
+    background-color: inherit;
+    color: white;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    transition: 0.3s;
 }
 .field:focus,
 .field.focus {
-    border: solid 1px white;
-    box-shadow: 0 0 5px 1px white;
-    background-color: #dbf0fd;
+    background-color: #4dd2ff;
     transition: 0.3s;
+}
+.field::-webkit-input-placeholder {
+    color: #dcdcdc;
 }
 
