@@ -1,0 +1,13 @@
+.searchbar{
+    display: block;
+    border-radius: 10px;
+    width: 75%;
+    margin: 20px;
+    padding: 10px;
+    border: solid 5px #c9c9c9;
+    transition: border 0.3s;
+}
+
+.searchbar:focus{
+    border: solid 5px #969696;
+}

@@ -4,13 +4,13 @@ import Card from "./Card.js";
 export default class NewCard extends Card {
     constructor(props){
         super(props);
-        this.state = Object.assign({compact: true, edit: true}, this.state);
+        this.state = Object.assign({edit: false}, this.state);
         this.onClick = this.onClick.bind(this);
     }
 
     onClick() {
         this.setState({
-            compact: !this.state.compact
+            edit: !this.state.edit
         });
     }
 
@@ -24,15 +24,11 @@ export default class NewCard extends Card {
                 email: this.state.email
             });
         }
-        this.setState({compact:true});
-    }
-
-    onClickDelete(){
-        this.onClick();
+        this.setState({edit:false});
     }
 
     render(){
-        if (this.state.compact){
+        if (!this.state.edit){
             return <div className="card"><button className="new" onClick={this.onClick}> + Add new contact</button></div>
         }
         return super.render();

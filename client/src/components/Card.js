@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import EditableLabel from "./EditableLabel.js";
+import Entry from "./Entry.js";
 
 export default class Card extends PureComponent {
     constructor(props){
@@ -34,8 +34,14 @@ export default class Card extends PureComponent {
     }
 
     onClickDelete(){
-        if (this.props.del){
-            this.props.del(this.props.id);
+        if (!this.state.edit){
+            if (this.props.del){
+                this.props.del(this.props.id);
+            }
+        } else {
+            this.setState({
+                edit: false
+            });
         }
     }
 
@@ -46,7 +52,6 @@ export default class Card extends PureComponent {
     }
 
     onClickSubmit() {
-        console.log("props: ", this.props, "state:", this.state);
         if (this.props.update){
             this.props.update(this.props.id, {
                 name: this.state.name,
@@ -62,46 +67,38 @@ export default class Card extends PureComponent {
 
     render() {
         return <div className="card">
-            <div>
-                <span>Name: </span>
-                <EditableLabel 
-                    text={this.state.name} 
-                    edit={this.state.edit} 
-                    onChange={ txt=>{ this.state.name = txt }}
-                />
+            <div className="card-corner">
+                { 
+                    this.state.edit 
+                        ? <button onClick={this.onClickSubmit} className="tools">Submit</button>
+                        : <button onClick={this.onClickEdit} className="tools">Edit</button>
+                }
+                <button onClick={this.onClickDelete} className="tools">{this.state.edit ? "Cancel" : "Delete"}</button>
             </div>
-            <div>
-                <span>Surname: </span>
-                <EditableLabel 
-                    text={this.state.surname} 
-                    edit={this.state.edit} 
-                    onChange={ txt=>{ this.state.surname = txt }}
-                />
-            </div>
-            <div>
-                <span>Phone: </span>
-                <EditableLabel 
-                    text={this.state.phone} 
-                    type="tel"
-                    edit={this.state.edit} 
-                    onChange={ txt=>{ this.state.phone = txt }}
-                />
-            </div>
-            <div>
-                <span>e-mail: </span>
-                <EditableLabel 
-                    text={this.state.email} 
-                    edit={this.state.edit} 
-                    type="email"
-                    onChange={ txt=>{ this.state.email = txt }}
-                />
-            </div>
-            { 
-                this.state.edit 
-                    ? <button onClick={this.onClickSubmit}>Submit</button>
-                    : <button onClick={this.onClickEdit}>Edit</button>
-            }
-            <button onClick={this.onClickDelete}>Delete</button>
+            <Entry 
+                caption="Name"
+                edit={this.state.edit} 
+                text={this.state.name}
+                placeholder="Enter person's first name..."
+                onChange={ txt=>{ this.state.name = txt }}/>
+            <Entry 
+                caption="Surname"
+                edit={this.state.edit} 
+                text={this.state.surname}
+                placeholder="Enter person's last name..."
+                onChange={ txt=>{ this.state.surname = txt }}/>
+            <Entry 
+                caption="Phone"
+                edit={this.state.edit} 
+                text={this.state.phone}
+                placeholder="+37129123457"
+                onChange={ txt=>{ this.state.phone = txt }}/>
+            <Entry 
+                caption="e-mail"
+                edit={this.state.edit} 
+                text={this.state.email}
+                placeholder="example@email.com"
+                onChange={ txt=>{ this.state.email = txt }}/>
         </div>
     }
 }
