@@ -29,7 +29,7 @@ export default class EditableLabel extends PureComponent {
         if (!this.props.edit){
             return <span>{text}</span>
         } 
-        return <input type={this.props.type || "text"} value={text} placeholder={this.props.placeholder} onChange={this.onChange}/>;
+        return <input className="field" type={this.props.type || "text"} value={text} placeholder={this.props.placeholder} onChange={this.onChange}/>;
     }
 }
 
