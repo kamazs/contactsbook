@@ -21619,11 +21619,6 @@
 	                        "div",
 	                        { className: "contacts-bottomcorner-fixed" },
 	                        _react2.default.createElement(_NewCard2.default, { key: "new", create: _ContactsActions2.default.create })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        null,
-	                        _react2.default.createElement("form", { id: "card-dropzone", action: "/upload", className: "dropzone" })
 	                    )
 	                )
 	            );
