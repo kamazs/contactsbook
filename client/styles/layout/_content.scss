@@ -6,13 +6,19 @@
     align-items: flex-start;
     align-content: flex-start;
     padding: 20px;
+    margin: 0 auto;
+}
+
+.contacts-container-wrapper {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 0;
     background-color: #c1d7d7;
-    height: 100%;
+    min-height: 80vh;
 }
 
-.app-container {
-    height: 100vh;
+.contacts-bottomcorner-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

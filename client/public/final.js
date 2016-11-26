@@ -21607,10 +21607,18 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "contacts-container" },
-	                        list
+	                        { className: "contacts-container-wrapper" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "contacts-container" },
+	                            list
+	                        )
 	                    ),
-	                    _react2.default.createElement(_NewCard2.default, { key: "new", create: _ContactsActions2.default.create })
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "contacts-bottomcorner-fixed" },
+	                        _react2.default.createElement(_NewCard2.default, { key: "new", create: _ContactsActions2.default.create })
+	                    )
 	                )
 	            );
 	        }
@@ -22546,7 +22554,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
-	                        { onClick: this.onClickDelete, className: "tools" },
+	                        { onClick: this.onClickDelete, className: this.state.edit ? "tools" : "delete" },
 	                        this.state.edit ? "Cancel" : " X "
 	                    )
 	                ),
@@ -22817,13 +22825,9 @@
 	        value: function render() {
 	            if (!this.state.edit) {
 	                return _react2.default.createElement(
-	                    "div",
-	                    { className: "card-new" },
-	                    _react2.default.createElement(
-	                        "button",
-	                        { className: "new", onClick: this.onClick },
-	                        " + Add new contact"
-	                    )
+	                    "button",
+	                    { className: "new", onClick: this.onClick },
+	                    " +Add"
 	                );
 	            }
 	            return _get(NewCard.prototype.__proto__ || Object.getPrototypeOf(NewCard.prototype), "render", this).call(this);
@@ -22870,7 +22874,7 @@
 	
 	
 	// module
-	exports.push([module.id, "html {\n  box-sizing: border-box;\n  background-color: #EBEBEE;\n  position: relative; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Roboto, sans-serif;\n  font-size: 16px; }\n\n.header-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-around;\n  margin: 0 10px;\n  background-color: #ff944d;\n  padding: 20px;\n  border-top-left-radius: 20px;\n  border-top-right-radius: 20px; }\n\nh1 {\n  color: white; }\n\n.keypair-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin: 5px; }\n\n.contacts-container {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px;\n  margin-left: 10px;\n  margin-right: 10px;\n  margin-top: 0;\n  background-color: #c1d7d7;\n  height: 100%; }\n\n.app-container {\n  height: 100vh; }\n\nbutton {\n  display: inline-block;\n  margin: 0 5px 0 0;\n  padding: 5px 5px;\n  font-size: 12px;\n  box-shadow: none;\n  border-radius: 10px;\n  cursor: pointer; }\n\nbutton:focus {\n  outline: none; }\n\nbutton.tools {\n  color: white;\n  background: transparent;\n  border: solid 2px white;\n  border-radius: 20px; }\n\nbutton.tools:hover,\nbutton.tools.hover {\n  border-color: #346392;\n  color: #346392;\n  transition: 0.5s; }\n\nbutton.tools:active,\nbutton.tools.active {\n  border-color: #27496d;\n  color: #27496d; }\n\nbutton.new {\n  color: #e5e5e5;\n  background: transparent;\n  border: solid 5px #e5e5e5;\n  border-radius: 120px;\n  font-size: 32px;\n  width: 100%;\n  height: 100%; }\n\nbutton.new:hover,\nbutton.new.hover {\n  border-color: white;\n  color: white;\n  transition: 0.5s; }\n\nbutton.new:active,\nbutton.new.active {\n  border-color: white;\n  color: white; }\n\n@keyframes appear-opacity {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.card, .card-new {\n  display: flex;\n  flex-direction: column;\n  width: 320px;\n  height: 190px;\n  padding: 5px;\n  margin: 2px;\n  border-radius: 15px;\n  background-color: #6ABAE6;\n  border-width: 1px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s; }\n\n.card:hover, .card-new:hover,\n.card.hover,\n.hover.card-new {\n  background-color: #3195cb;\n  transition: 0.5s; }\n\n.card-new {\n  border-radius: 120px;\n  background-color: #a6ff4d;\n  position: absolute;\n  bottom: 10px;\n  right: 10px; }\n\n.card-corner {\n  align-self: flex-end;\n  margin-bottom: 7px;\n  margin-top: 3px;\n  margin-left: 0; }\n\nbutton.new {\n  width: 100%;\n  height: 100%; }\n\n.label-key {\n  font-weight: bold; }\n\ninput[type=\"text\"] {\n  display: inline-block;\n  margin: 0;\n  font-size: 14px;\n  box-shadow: none;\n  border-radius: none; }\n\ninput[type=\"text\"]:focus,\ninput[type=\"text\"].focus {\n  outline: none; }\n\n.field {\n  padding: 2px;\n  background-color: inherit;\n  color: white;\n  border: none;\n  border-bottom: 1px solid #dcdcdc;\n  transition: 0.3s; }\n\n.field:focus,\n.field.focus {\n  background-color: #4dd2ff;\n  transition: 0.3s; }\n\n.field::-webkit-input-placeholder {\n  color: #cccccc; }\n\n.field:-moz-placeholder {\n  color: #cccccc; }\n\n.field::-ms-input-placeholder {\n  color: #cccccc; }\n\n.searchbar {\n  display: block;\n  border-radius: 10px;\n  width: 75%;\n  margin: 20px;\n  padding: 10px;\n  border: solid 5px #c9c9c9;\n  transition: border 0.3s; }\n\n.searchbar:focus {\n  border: solid 5px #969696; }\n\na {\n  color: white;\n  text-decoration: none;\n  padding: 2px; }\n\na:visited {\n  color: #555555; }\n\na:hover {\n  color: #3195cb;\n  background-color: white;\n  transition: 0.3s; }\n", ""]);
+	exports.push([module.id, "html {\n  box-sizing: border-box;\n  background-color: #EBEBEE;\n  position: relative; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Roboto, sans-serif;\n  font-size: 16px; }\n\n.header-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-around;\n  margin: 0 10px;\n  background-color: #ff944d;\n  padding: 20px;\n  border-top-left-radius: 20px;\n  border-top-right-radius: 20px; }\n\nh1 {\n  color: white; }\n\n.keypair-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin: 5px; }\n\n.contacts-container {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px;\n  margin: 0 auto; }\n\n.contacts-container-wrapper {\n  margin-left: 10px;\n  margin-right: 10px;\n  margin-top: 0;\n  background-color: #c1d7d7;\n  min-height: 80vh; }\n\n.contacts-bottomcorner-fixed {\n  position: fixed;\n  bottom: 20px;\n  right: 20px; }\n\nbutton {\n  display: inline-block;\n  margin: 0 5px 0 0;\n  padding: 5px 5px;\n  font-size: 12px;\n  box-shadow: none;\n  border-radius: 10px;\n  cursor: pointer;\n  min-width: 27px; }\n\nbutton:focus {\n  outline: none; }\n\n@keyframes appear-opacity {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.card {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n  flex-shrink: 1;\n  min-width: 290px;\n  width: 320px;\n  height: 190px;\n  padding: 5px;\n  margin: 2px;\n  border-radius: 15px;\n  background-color: #4da6ff;\n  border-width: 1px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s; }\n\n.card:hover,\n.card.hover {\n  background-color: #3195cb;\n  transition: 0.5s; }\n\n.card-corner {\n  align-self: flex-end;\n  margin-bottom: 7px;\n  margin-top: 3px;\n  margin-left: 0; }\n\nbutton.tools, button.delete {\n  color: white;\n  background: transparent;\n  border: solid 2px white;\n  border-radius: 20px; }\n\nbutton.tools:hover, button.delete:hover,\nbutton.tools.hover,\nbutton.hover.delete {\n  border-color: #346392;\n  color: #346392;\n  transition: 0.5s; }\n\nbutton.tools:active, button.delete:active,\nbutton.tools.active,\nbutton.active.delete {\n  border-color: #27496d;\n  color: #27496d; }\n\nbutton.delete {\n  background-color: #ffb3b3;\n  font-weight: bolder; }\n\nbutton.delete:hover,\nbutton.delete.hover {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.delete:active,\nbutton.delete.active {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.new {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border: solid 10px #e5e5e5;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  border-radius: 75px;\n  background-color: #a6ff4d;\n  color: #e5e5e5;\n  box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  font-size: 32px; }\n\nbutton.new:hover,\nbutton.new.hover {\n  box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  transform: translate(2px, 2px);\n  transition: 0.3s;\n  border-color: white;\n  color: white; }\n\nbutton.new:active,\nbutton.new.active {\n  box-shadow: none;\n  transform: translate(5px, 5px);\n  transition: 0.2s;\n  border-color: white;\n  color: white; }\n\nbutton.new {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border-width: 10px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  border-radius: 75px;\n  background-color: #a6ff4d; }\n\n.label-key {\n  font-weight: bold; }\n\ninput[type=\"text\"] {\n  display: inline-block;\n  margin: 0;\n  font-size: 14px;\n  box-shadow: none;\n  border-radius: none; }\n\ninput[type=\"text\"]:focus,\ninput[type=\"text\"].focus {\n  outline: none; }\n\n.field {\n  padding: 2px;\n  background-color: inherit;\n  color: white;\n  border: none;\n  border-bottom: 1px solid #dcdcdc;\n  transition: 0.3s; }\n\n.field:focus,\n.field.focus {\n  background-color: #4dd2ff;\n  transition: 0.3s; }\n\n.field::-webkit-input-placeholder {\n  color: #cccccc; }\n\n.field:-moz-placeholder {\n  color: #cccccc; }\n\n.field::-ms-input-placeholder {\n  color: #cccccc; }\n\n.searchbar {\n  display: block;\n  border-radius: 10px;\n  width: 75%;\n  margin: 20px;\n  padding: 10px;\n  border: solid 5px #c9c9c9;\n  transition: border 0.3s; }\n\n.searchbar:focus {\n  border: solid 5px #969696; }\n\na {\n  color: white;\n  text-decoration: none;\n  padding: 2px; }\n\na:visited {\n  color: #555555; }\n\na:hover {\n  color: #3195cb;\n  background-color: white;\n  transition: 0.3s; }\n", ""]);
 	
 	// exports
 

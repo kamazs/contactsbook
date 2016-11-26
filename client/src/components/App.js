@@ -76,10 +76,14 @@ export default class App extends Component {
                     <h1>CRUD CONTACTS BOOK</h1>
                     <input className="searchbar" type="text" onChange={this.onFilter} placeholder="Start typing here to filter contacts..."/>
                 </div>
-                <div className="contacts-container">
-                    {list}
+                <div className="contacts-container-wrapper">
+                    <div className="contacts-container">
+                        {list}
+                    </div>
                 </div>
-                <NewCard key="new" create={ContactsActions.create}/>
+                <div className="contacts-bottomcorner-fixed">
+                    <NewCard key="new" create={ContactsActions.create}/>
+                </div>
             </div>
             
         </div>;

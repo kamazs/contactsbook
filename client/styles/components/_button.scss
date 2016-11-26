@@ -6,56 +6,9 @@ button {
     box-shadow: none;
     border-radius: 10px;
     cursor: pointer;
+    min-width: 27px;
 }
 
 button:focus {
     outline: none;
 }
-
-$tools-color-normal: white;
-$tools-color-hover: #346392;
-$tools-color-active: #27496d;
-
-button.tools {
-    color: $tools-color-normal;
-    background: rgba(0,0,0,0);
-    border: solid 2px $tools-color-normal;
-    border-radius: 20px;
-}
-button.tools:hover,
-button.tools.hover {
-    border-color: $tools-color-hover;
-    color: $tools-color-hover;
-    transition: 0.5s;
-}
-button.tools:active,
-button.tools.active {
-    border-color: $tools-color-active;
-    color: $tools-color-active;
-}
-
-$new-color-normal: #e5e5e5;
-$new-color-hover: white;
-$new-color-active: white;
-
-button.new {
-    color: $new-color-normal;
-    background: rgba(0,0,0,0);
-    border: solid 5px $new-color-normal;
-    border-radius: 120px;
-    font-size: 32px;
-    width: 100%;
-    height: 100%;
-}
-button.new:hover,
-button.new.hover {
-    border-color: $new-color-hover;
-    color: $new-color-hover;
-    transition: 0.5s;
-}
-button.new:active,
-button.new.active {
-    border-color: $new-color-active;
-    color: $new-color-active;
-}
-

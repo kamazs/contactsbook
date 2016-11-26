@@ -73,7 +73,7 @@ export default class Card extends PureComponent {
                         ? <button onClick={this.onClickSubmit} className="tools">Submit</button>
                         : <button onClick={this.onClickEdit} className="tools">Edit</button>
                 }
-                <button onClick={this.onClickDelete} className="tools">{this.state.edit ? "Cancel" : " X "}</button>
+                <button onClick={this.onClickDelete} className={this.state.edit ? "tools" : "delete"}>{this.state.edit ? "Cancel" : " X "}</button>
             </div>
             <Entry 
                 caption="Name"
