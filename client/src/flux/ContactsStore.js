@@ -1,5 +1,6 @@
 import AppDispatcher from "./AppDispatcher.js";
 import Events from "events"; 
+import axios from "axios";
 import ContactsConstants from "./ContactsConstants.js";
 
 const CHANGE_EVENT = "change";
@@ -7,17 +8,36 @@ const CHANGE_EVENT = "change";
 class ContactsStore extends Events.EventEmitter {
     constructor(props){
         super(props);
-        this.contacts = {
-            "1": { id: 1, name: "Janis", surname: "Kalnins", phone: "29567888", email: "janis.kalnins@gmail.com" },
-            "2": { id: 2, name: "Igors", surname: "Lejins", phone: "20357172", email: "igorz1985xxx@inbox.lv" },
-        };
+        this.contacts = {};
         this.dispatcherIdx = AppDispatcher.register(this.handleAction.bind(this));
-        this.lastID = Object.keys(this.contacts).length+1;
+        this.updateLastID();
+
+        this.dbSync();
+    }
+
+    dbSync() {
+        axios.get("/all")
+            .then(response=>{
+                console.log("response: ", response);
+                response.data.forEach(contact=>{
+                    this.contacts[contact.id || "0"] = contact;
+                });
+                this.updateLastID();
+                this.emit(CHANGE_EVENT);
+            })
+            .catch(err=>{
+                console.log("ERROR: ", err);
+            });
+    }
+
+    updateLastID() {
+        console.log("this.contacts: ", this.contacts, Object.keys(this.contacts).map(c=>+c));
+        this.lastID = 1 + Math.max( ...Object.keys(this.contacts).map(c=>+c) );
+        console.log("lastID:", this.lastID);
     }
 
     handleAction(payload) {
         const action = payload.action;
-        console.log("action:", action);
         switch (action.actionType){
             case ContactsConstants.CONTACT_CREATE:
                 this.create(action.params);
@@ -33,22 +53,47 @@ class ContactsStore extends Events.EventEmitter {
         }
 
         this.emit(CHANGE_EVENT);
+        this.dbSync();
+
         return true;
     }
 
     create(data) {
-        console.log("create.data: ", data);
         this.contacts[this.lastID] = Object.assign( {id: this.lastID}, data );
+        
+        axios.post("/create", this.contacts[this.lastID])
+            .then(response=>{
+                console.log("User addition response: ", response);
+            })
+            .catch(err=>{
+                console.log("Create error: ", err);
+            });
+        
         this.lastID++;
     }
 
     update(id, data) {
-        //Object.assign(this.contacts[id], data);
         this.contacts[id] = Object.assign( {id: id}, data );
+
+        axios.post("/update", this.contacts[id])
+            .then(response=>{
+                console.log("User updated response: ", response);
+            })
+            .catch(err=>{
+                console.log("Update error: ", err);
+            });
     }
 
     del(id){
         delete this.contacts[id];
+
+        axios.post("/delete", {id: id})
+            .then(response=>{
+                console.log("User delete response: ", response);
+            })
+            .catch(err=>{
+                console.log("Delete error: ", err);
+            });
     }
 
     get all() {

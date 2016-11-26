@@ -5,6 +5,7 @@ import Card from "./Card.js";
 import NewCard from "./NewCard.js";
 
 require("../../styles/main.scss");
+require("dropzone");
 
 export default class App extends Component {
     constructor(props){
