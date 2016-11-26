@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import Entry from "./Entry.js";
+import ConfirmationOverlay from "./ConfirmationOverlay.js";
 
 export default class Card extends PureComponent {
     constructor(props){
@@ -9,11 +10,13 @@ export default class Card extends PureComponent {
             surname: props.surname,
             phone: props.phone,
             email: props.email,
-            edit: props.edit
+            edit: props.edit,
+            confirmation: false
         };
         this.onClickDelete = this.onClickDelete.bind(this);
         this.onClickEdit = this.onClickEdit.bind(this);
         this.onClickSubmit = this.onClickSubmit.bind(this);
+        this.onConfirmation = this.onConfirmation.bind(this);
     }
 
     componentWillReceiveProps(newProps) {
@@ -34,14 +37,8 @@ export default class Card extends PureComponent {
     }
 
     onClickDelete(){
-        if (!this.state.edit){
-            if (this.props.del){
-                this.props.del(this.props.id);
-            }
-        } else {
-            this.setState({
-                edit: false
-            });
+        if (this.props.del){
+            this.props.del(this.props.id);
         }
     }
 
@@ -65,15 +62,35 @@ export default class Card extends PureComponent {
         });
     }
 
+    onConfirmation() {
+        if (this.state.edit){
+            this.setState({
+                edit: false
+            });
+            return;
+        }
+
+        this.setState({
+            confirmation: !this.state.confirmation
+        });
+    }
+
     render() {
         return <div className="card">
+            <ConfirmationOverlay 
+                warning={ this.state.confirmation ? "Are you sure you want to delete this contact?" : null } 
+                yes="YES" 
+                no="NO" 
+                onYes={this.onClickDelete} 
+                onNo={this.onConfirmation}
+            />
             <div className="card-corner">
                 { 
                     this.state.edit 
                         ? <button onClick={this.onClickSubmit} className="tools">Submit</button>
                         : <button onClick={this.onClickEdit} className="tools">Edit</button>
                 }
-                <button onClick={this.onClickDelete} className={this.state.edit ? "tools" : "delete"}>{this.state.edit ? "Cancel" : " X "}</button>
+                <button onClick={this.onConfirmation} className={this.state.edit ? "tools" : "delete"}>{this.state.edit ? "Cancel" : " X "}</button>
             </div>
             <Entry 
                 caption="Name"

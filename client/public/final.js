@@ -60,7 +60,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(216);
+	__webpack_require__(217);
 	
 	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById("contactsBook"));
 
@@ -21501,7 +21501,7 @@
 	
 	var _Card2 = _interopRequireDefault(_Card);
 	
-	var _NewCard = __webpack_require__(215);
+	var _NewCard = __webpack_require__(216);
 	
 	var _NewCard2 = _interopRequireDefault(_NewCard);
 	
@@ -21513,8 +21513,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	__webpack_require__(216);
-	__webpack_require__(220);
+	__webpack_require__(217);
+	__webpack_require__(221);
 	
 	var App = function (_Component) {
 	    _inherits(App, _Component);
@@ -23985,6 +23985,10 @@
 	
 	var _Entry2 = _interopRequireDefault(_Entry);
 	
+	var _ConfirmationOverlay = __webpack_require__(215);
+	
+	var _ConfirmationOverlay2 = _interopRequireDefault(_ConfirmationOverlay);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24006,11 +24010,13 @@
 	            surname: props.surname,
 	            phone: props.phone,
 	            email: props.email,
-	            edit: props.edit
+	            edit: props.edit,
+	            confirmation: false
 	        };
 	        _this.onClickDelete = _this.onClickDelete.bind(_this);
 	        _this.onClickEdit = _this.onClickEdit.bind(_this);
 	        _this.onClickSubmit = _this.onClickSubmit.bind(_this);
+	        _this.onConfirmation = _this.onConfirmation.bind(_this);
 	        return _this;
 	    }
 	
@@ -24032,14 +24038,8 @@
 	    }, {
 	        key: "onClickDelete",
 	        value: function onClickDelete() {
-	            if (!this.state.edit) {
-	                if (this.props.del) {
-	                    this.props.del(this.props.id);
-	                }
-	            } else {
-	                this.setState({
-	                    edit: false
-	                });
+	            if (this.props.del) {
+	                this.props.del(this.props.id);
 	            }
 	        }
 	    }, {
@@ -24065,6 +24065,20 @@
 	            });
 	        }
 	    }, {
+	        key: "onConfirmation",
+	        value: function onConfirmation() {
+	            if (this.state.edit) {
+	                this.setState({
+	                    edit: false
+	                });
+	                return;
+	            }
+	
+	            this.setState({
+	                confirmation: !this.state.confirmation
+	            });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            var _this2 = this;
@@ -24072,6 +24086,13 @@
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "card" },
+	                _react2.default.createElement(_ConfirmationOverlay2.default, {
+	                    warning: this.state.confirmation ? "Are you sure you want to delete this contact?" : null,
+	                    yes: "YES",
+	                    no: "NO",
+	                    onYes: this.onClickDelete,
+	                    onNo: this.onConfirmation
+	                }),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-corner" },
@@ -24086,7 +24107,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
-	                        { onClick: this.onClickDelete, className: this.state.edit ? "tools" : "delete" },
+	                        { onClick: this.onConfirmation, className: this.state.edit ? "tools" : "delete" },
 	                        this.state.edit ? "Cancel" : " X "
 	                    )
 	                ),
@@ -24298,6 +24319,51 @@
 	    value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	    if (props.warning) {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "confirmation-container" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "confirmation-info" },
+	                props.warning
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "confirmation-controls" },
+	                _react2.default.createElement(
+	                    "button",
+	                    { className: "confirmation-button-yes", onClick: props.onYes },
+	                    props.yes
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { className: "confirmation-button-no", onClick: props.onNo },
+	                    props.no
+	                )
+	            )
+	        );
+	    }
+	    return null;
+	};
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -24372,16 +24438,16 @@
 	exports.default = NewCard;
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(217);
+	var content = __webpack_require__(218);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(219)(content, {});
+	var update = __webpack_require__(220)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -24398,21 +24464,21 @@
 	}
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(219)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "html {\n  box-sizing: border-box;\n  background-color: #EBEBEE;\n  position: relative; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Roboto, sans-serif;\n  font-size: 16px; }\n\n.header-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-around;\n  margin: 0 10px;\n  background-color: #ff944d;\n  padding: 20px;\n  border-top-left-radius: 20px;\n  border-top-right-radius: 20px; }\n\nh1 {\n  color: white; }\n\n.keypair-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin: 5px; }\n\n.contacts-container {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px;\n  margin: 0 auto; }\n\n.contacts-container-wrapper {\n  margin-left: 10px;\n  margin-right: 10px;\n  margin-top: 0;\n  background-color: #c1d7d7;\n  min-height: 80vh; }\n\n.contacts-bottomcorner-fixed {\n  position: fixed;\n  bottom: 20px;\n  right: 20px; }\n\nbutton {\n  display: inline-block;\n  margin: 0 5px 0 0;\n  padding: 5px 5px;\n  font-size: 12px;\n  box-shadow: none;\n  border-radius: 10px;\n  cursor: pointer;\n  min-width: 27px; }\n\nbutton:focus {\n  outline: none; }\n\n@keyframes appear-opacity {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.card {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n  flex-shrink: 1;\n  min-width: 290px;\n  width: 320px;\n  height: 190px;\n  padding: 5px;\n  margin: 2px;\n  border-radius: 15px;\n  background-color: #4da6ff;\n  border-width: 1px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s; }\n\n.card:hover,\n.card.hover {\n  background-color: #3195cb;\n  transition: 0.5s; }\n\n.card-corner {\n  align-self: flex-end;\n  margin-bottom: 7px;\n  margin-top: 3px;\n  margin-left: 0; }\n\nbutton.tools, button.delete {\n  color: white;\n  background: transparent;\n  border: solid 2px white;\n  border-radius: 20px; }\n\nbutton.tools:hover, button.delete:hover,\nbutton.tools.hover,\nbutton.hover.delete {\n  border-color: #346392;\n  color: #346392;\n  transition: 0.5s; }\n\nbutton.tools:active, button.delete:active,\nbutton.tools.active,\nbutton.active.delete {\n  border-color: #27496d;\n  color: #27496d; }\n\nbutton.delete {\n  background-color: #ffb3b3;\n  font-weight: bolder; }\n\nbutton.delete:hover,\nbutton.delete.hover {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.delete:active,\nbutton.delete.active {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.new {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border: solid 10px #e5e5e5;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  border-radius: 75px;\n  background-color: #a6ff4d;\n  color: #e5e5e5;\n  box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  font-size: 32px; }\n\nbutton.new:hover,\nbutton.new.hover {\n  box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  transform: translate(2px, 2px);\n  transition: 0.3s;\n  border-color: white;\n  color: white; }\n\nbutton.new:active,\nbutton.new.active {\n  box-shadow: none;\n  transform: translate(5px, 5px);\n  transition: 0.2s;\n  border-color: white;\n  color: white; }\n\nbutton.new {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border-width: 10px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  border-radius: 75px;\n  background-color: #a6ff4d; }\n\n.label-key {\n  font-weight: bold; }\n\ninput[type=\"text\"] {\n  display: inline-block;\n  margin: 0;\n  font-size: 14px;\n  box-shadow: none;\n  border-radius: none; }\n\ninput[type=\"text\"]:focus,\ninput[type=\"text\"].focus {\n  outline: none; }\n\n.field {\n  padding: 2px;\n  background-color: inherit;\n  color: white;\n  border: none;\n  border-bottom: 1px solid #dcdcdc;\n  transition: 0.3s; }\n\n.field:focus,\n.field.focus {\n  background-color: #4dd2ff;\n  transition: 0.3s; }\n\n.field::-webkit-input-placeholder {\n  color: #cccccc; }\n\n.field:-moz-placeholder {\n  color: #cccccc; }\n\n.field::-ms-input-placeholder {\n  color: #cccccc; }\n\n.searchbar {\n  display: block;\n  border-radius: 10px;\n  width: 75%;\n  margin: 20px;\n  padding: 10px;\n  border: solid 5px #c9c9c9;\n  transition: border 0.3s; }\n\n.searchbar:focus {\n  border: solid 5px #969696; }\n\na {\n  color: white;\n  text-decoration: none;\n  padding: 2px; }\n\na:visited {\n  color: #555555; }\n\na:hover {\n  color: #3195cb;\n  background-color: white;\n  transition: 0.3s; }\n", ""]);
+	exports.push([module.id, "html {\n  box-sizing: border-box;\n  background-color: #EBEBEE;\n  position: relative; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Roboto, sans-serif;\n  font-size: 16px; }\n\n.header-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-around;\n  margin: 0 10px;\n  background-color: #ff944d;\n  padding: 20px;\n  border-top-left-radius: 20px;\n  border-top-right-radius: 20px; }\n\nh1 {\n  color: white; }\n\n.keypair-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin: 5px; }\n\n.contacts-container {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px;\n  margin: 0 auto; }\n\n.contacts-container-wrapper {\n  margin-left: 10px;\n  margin-right: 10px;\n  margin-top: 0;\n  background-color: #c1d7d7;\n  min-height: 80vh; }\n\n.contacts-bottomcorner-fixed {\n  position: fixed;\n  bottom: 20px;\n  right: 20px; }\n\nbutton {\n  display: inline-block;\n  margin: 0 5px 0 0;\n  padding: 5px 5px;\n  font-size: 12px;\n  box-shadow: none;\n  border-radius: 10px;\n  cursor: pointer;\n  min-width: 27px; }\n\nbutton:focus {\n  outline: none; }\n\n@keyframes appear-opacity {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.card {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n  flex-shrink: 1;\n  min-width: 290px;\n  width: 320px;\n  height: 190px;\n  padding: 5px;\n  margin: 2px;\n  border-radius: 15px;\n  background-color: #4da6ff;\n  border-width: 1px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  position: relative; }\n\n.card:hover,\n.card.hover {\n  background-color: #3195cb;\n  transition: 0.5s; }\n\n.card-corner {\n  align-self: flex-end;\n  margin-bottom: 7px;\n  margin-top: 3px;\n  margin-left: 0; }\n\nbutton.tools, button.delete, button.confirmation-button-yes, button.confirmation-button-no {\n  color: white;\n  background-color: transparent;\n  border: solid 2px white;\n  border-radius: 20px; }\n\nbutton.tools:hover, button.delete:hover, button.confirmation-button-yes:hover, button.confirmation-button-no:hover,\nbutton.tools.hover,\nbutton.hover.delete,\nbutton.hover.confirmation-button-yes,\nbutton.hover.confirmation-button-no {\n  background-color: #b3e6b3;\n  transition: 0.5s; }\n\nbutton.tools:active, button.delete:active, button.confirmation-button-yes:active, button.confirmation-button-no:active,\nbutton.tools.active,\nbutton.active.delete,\nbutton.active.confirmation-button-yes,\nbutton.active.confirmation-button-no {\n  background-color: #8cd98c; }\n\nbutton.delete, button.confirmation-button-yes {\n  background-color: #ffb3b3;\n  font-weight: bolder; }\n\nbutton.delete:hover, button.confirmation-button-yes:hover,\nbutton.delete.hover,\nbutton.hover.confirmation-button-yes {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.delete:active, button.confirmation-button-yes:active,\nbutton.delete.active,\nbutton.active.confirmation-button-yes {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.new {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border: solid 10px #e5e5e5;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  border-radius: 75px;\n  background-color: #a6ff4d;\n  color: #e5e5e5;\n  box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  font-size: 32px; }\n\nbutton.new:hover,\nbutton.new.hover {\n  box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  transform: translate(2px, 2px);\n  transition: 0.3s;\n  border-color: white;\n  color: white; }\n\nbutton.new:active,\nbutton.new.active {\n  box-shadow: none;\n  transform: translate(5px, 5px);\n  transition: 0.2s;\n  border-color: white;\n  color: white; }\n\nbutton.new {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border-width: 10px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  border-radius: 75px;\n  background-color: #a6ff4d; }\n\n.label-key {\n  font-weight: bold; }\n\ninput[type=\"text\"] {\n  display: inline-block;\n  margin: 0;\n  font-size: 14px;\n  box-shadow: none;\n  border-radius: none; }\n\ninput[type=\"text\"]:focus,\ninput[type=\"text\"].focus {\n  outline: none; }\n\n.field {\n  padding: 2px;\n  background-color: inherit;\n  color: white;\n  border: none;\n  border-bottom: 1px solid #dcdcdc;\n  transition: 0.3s; }\n\n.field:focus,\n.field.focus {\n  background-color: #4dd2ff;\n  transition: 0.3s; }\n\n.field::-webkit-input-placeholder {\n  color: #cccccc; }\n\n.field:-moz-placeholder {\n  color: #cccccc; }\n\n.field::-ms-input-placeholder {\n  color: #cccccc; }\n\n.searchbar {\n  display: block;\n  border-radius: 10px;\n  width: 75%;\n  margin: 20px;\n  padding: 10px;\n  border: solid 5px #c9c9c9;\n  transition: border 0.3s; }\n\n.searchbar:focus {\n  border: solid 5px #969696; }\n\na {\n  color: white;\n  text-decoration: none;\n  padding: 2px; }\n\na:visited {\n  color: #555555; }\n\na:hover {\n  color: #3195cb;\n  background-color: white;\n  transition: 0.3s; }\n\n.confirmation-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  position: absolute;\n  border-radius: 10px;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-color: rgba(0, 0, 0, 0.5); }\n\n.confirmation-info {\n  text-align: center;\n  font-size: 25px;\n  margin: 15px;\n  font-weight: bolder; }\n\n.confirmation-controls {\n  display: flex;\n  flex-direction: row;\n  justify-content: center; }\n\nbutton.confirmation-button-no {\n  width: 100px;\n  height: 80px;\n  font-size: 20px;\n  border-radius: 50px; }\n\nbutton.confirmation-button-yes {\n  width: 100px;\n  height: 80px;\n  font-size: 20px;\n  border-radius: 50px; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports) {
 
 	/*
@@ -24468,7 +24534,7 @@
 
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -24720,7 +24786,7 @@
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {
@@ -26491,10 +26557,10 @@
 	
 	}).call(this);
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(221)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(222)(module)))
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {

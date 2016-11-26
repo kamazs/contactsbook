@@ -23,6 +23,7 @@ $card-hover-bg-color: #3195cb;
     color: white;
     transition: 0.3s;
     animation: appear-opacity 0.75s;
+    position: relative;
 }
 
 .card:hover,
@@ -38,28 +39,24 @@ $card-hover-bg-color: #3195cb;
     margin-left: 0;
 }
 
-
-
 $tools-color-normal: white;
-$tools-color-hover: #346392;
-$tools-color-active: #27496d;
+$tools-color-hover: #b3e6b3;
+$tools-color-active: #8cd98c;
 
 button.tools {
     color: $tools-color-normal;
-    background: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
     border: solid 2px $tools-color-normal;
     border-radius: 20px;
 }
 button.tools:hover,
 button.tools.hover {
-    border-color: $tools-color-hover;
-    color: $tools-color-hover;
+    background-color: $tools-color-hover;
     transition: 0.5s;
 }
 button.tools:active,
 button.tools.active {
-    border-color: $tools-color-active;
-    color: $tools-color-active;
+    background-color: $tools-color-active;
 }
 
 button.delete {
