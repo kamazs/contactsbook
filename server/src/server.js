@@ -3,8 +3,6 @@ const path = require("path");
 const orm = require("orm");
 const qorm = require("q-orm");
 const bodyParser = require("body-parser");
-const fileUpload = require("express-fileupload");
-const resizeCrop = require("resize-crop");
 const config = require("./config.js");
 
 const app = express();
@@ -26,8 +24,6 @@ app.use(orm.express([ "mysql://", config.dbUser, ":", config.dbPassword, "@", co
         }
     }
 ));
-
-app.use(fileUpload());
 
 app.all("*", (req, res, next)=>{
     if (config.allowed.includes(req.headers.origin)){
@@ -80,43 +76,6 @@ app.post("/delete", jsonEncoded, (req, res)=>{
             !err && console.log("Deleted!");
         });
         res.send("OK");
-    });
-});
-
-app.post("/upload", (req,res)=>{
-    console.log("File upload attempt!");
-
-    if (!req.files){
-        res.send("No files were uploaded!");
-        return;
-    }
-    console.log("req.files: ", req.files);
-
-    let uploadedFile = req.files.file;
-    const imgPath = path.resolve("client/public/img/");
-    
-    uploadedFile.mv( imgPath + req.files.file.name, err=>{
-        if (err){
-            console.log("ERROR UPLOADING FILE: ", err);
-            res.status(500).send(err);
-        } else {
-            console.log("File uploaded!");
-            res.send("File uploaded!");
-            resizeCrop({
-                format: "jpg",
-                src: imgPath + req.files.file.name,
-                dest: imgPath + "out/" + req.files.file.name,
-                width: 100,
-                height: 200,
-                gravity: "center"
-            }, (err,filePath)=>{
-                if (console.log("ResizeCrop ERROR: ", filePath, err)){
-                    res.status(500).send(err);
-                    return;
-                }
-                console.log("Succesful resize-crop to ", filePath);
-            });
-        }
     });
 });
 
