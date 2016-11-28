@@ -15,7 +15,7 @@ export default class NewCard extends Card {
     }
 
     onClickSubmit() {
-        console.log("New card overrided function call");
+        
         if (this.props.create){
             this.props.create({
                 name: this.state.name, 

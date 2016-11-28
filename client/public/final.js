@@ -60,7 +60,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(217);
+	__webpack_require__(218);
 	
 	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById("contactsBook"));
 
@@ -21501,7 +21501,7 @@
 	
 	var _Card2 = _interopRequireDefault(_Card);
 	
-	var _NewCard = __webpack_require__(216);
+	var _NewCard = __webpack_require__(217);
 	
 	var _NewCard2 = _interopRequireDefault(_NewCard);
 	
@@ -21513,8 +21513,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	__webpack_require__(217);
-	__webpack_require__(221);
+	__webpack_require__(218);
+	__webpack_require__(222);
 	
 	var App = function (_Component) {
 	    _inherits(App, _Component);
@@ -21584,7 +21584,7 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var list = []; //[<NewCard key="new" create={ContactsActions.create}/>];
+	            var list = [];
 	            for (var key in this.state.contacts) {
 	                var obj = this.state.contacts[key];
 	                list.push(_react2.default.createElement(_Card2.default, _extends({ key: obj.id, del: _ContactsActions2.default.del, update: _ContactsActions2.default.update }, obj)));
@@ -23985,7 +23985,7 @@
 	
 	var _Entry2 = _interopRequireDefault(_Entry);
 	
-	var _ConfirmationOverlay = __webpack_require__(215);
+	var _ConfirmationOverlay = __webpack_require__(216);
 	
 	var _ConfirmationOverlay2 = _interopRequireDefault(_ConfirmationOverlay);
 	
@@ -24131,6 +24131,7 @@
 	                    caption: "Phone",
 	                    edit: this.state.edit,
 	                    text: this.state.phone,
+	                    type: "tel",
 	                    placeholder: "+37129123457",
 	                    onChange: function onChange(txt) {
 	                        _this2.state.phone = txt;
@@ -24240,6 +24241,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _classnames = __webpack_require__(215);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24257,9 +24262,11 @@
 	        var _this = _possibleConstructorReturn(this, (EditableLabel.__proto__ || Object.getPrototypeOf(EditableLabel)).call(this, props));
 	
 	        _this.state = {
-	            text: props.text || ""
+	            text: props.text || "",
+	            valid: true
 	        };
 	        _this.onChange = _this.onChange.bind(_this);
+	        _this.checkValidity = _this.checkValidity.bind(_this);
 	        return _this;
 	    }
 	
@@ -24271,6 +24278,30 @@
 	            });
 	        }
 	    }, {
+	        key: "test",
+	        value: function test(txt, mode) {
+	            var regexp = /^/;
+	            switch (mode) {
+	                case "email":
+	                    regexp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	                    break;
+	                case "tel":
+	                    regexp = /^[0-9\x2D\x2B\x23]+$/;
+	                default:
+	                    break;
+	            }
+	
+	            return regexp.test(txt);
+	        }
+	    }, {
+	        key: "checkValidity",
+	        value: function checkValidity() {
+	            this.setState({
+	                valid: this.test(this.input.value, this.props.type)
+	            });
+	            return this.state.valid;
+	        }
+	    }, {
 	        key: "onChange",
 	        value: function onChange(e) {
 	            if (this.props.onChange) {
@@ -24279,10 +24310,14 @@
 	            this.setState({
 	                text: e.currentTarget.value
 	            });
+	
+	            this.checkValidity();
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this2 = this;
+	
 	            var text = this.state.text;
 	            if (!this.props.edit) {
 	                return _react2.default.createElement(
@@ -24295,7 +24330,13 @@
 	                    ) : text
 	                );
 	            }
-	            return _react2.default.createElement("input", { className: "field", type: this.props.type || "text", value: text, placeholder: this.props.placeholder, onChange: this.onChange });
+	            var currentClassName = (0, _classnames2.default)({
+	                "field": this.state.valid,
+	                "field-wrong": !this.state.valid
+	            });
+	            return _react2.default.createElement("input", { className: currentClassName, type: this.props.type || "text", value: text, placeholder: this.props.placeholder, onChange: this.onChange, ref: function ref(input) {
+	                    _this2.input = input;
+	                } });
 	        }
 	    }]);
 	
@@ -24311,6 +24352,60 @@
 
 /***/ },
 /* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+	
+	(function () {
+		'use strict';
+	
+		var hasOwn = {}.hasOwnProperty;
+	
+		function classNames () {
+			var classes = [];
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+	
+			return classes.join(' ');
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24355,7 +24450,7 @@
 	};
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24407,7 +24502,7 @@
 	    }, {
 	        key: "onClickSubmit",
 	        value: function onClickSubmit() {
-	            console.log("New card overrided function call");
+	
 	            if (this.props.create) {
 	                this.props.create({
 	                    name: this.state.name,
@@ -24438,16 +24533,16 @@
 	exports.default = NewCard;
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(218);
+	var content = __webpack_require__(219);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(220)(content, {});
+	var update = __webpack_require__(221)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -24464,21 +24559,21 @@
 	}
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(219)();
+	exports = module.exports = __webpack_require__(220)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "html {\n  box-sizing: border-box;\n  background-color: #EBEBEE;\n  position: relative; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Roboto, sans-serif;\n  font-size: 16px; }\n\n.header-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-around;\n  margin: 0 10px;\n  background-color: #ff944d;\n  padding: 20px;\n  border-top-left-radius: 20px;\n  border-top-right-radius: 20px; }\n\nh1 {\n  color: white; }\n\n.keypair-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin: 5px; }\n\n.contacts-container {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px;\n  margin: 0 auto; }\n\n.contacts-container-wrapper {\n  margin-left: 10px;\n  margin-right: 10px;\n  margin-top: 0;\n  background-color: #c1d7d7;\n  min-height: 80vh; }\n\n.contacts-bottomcorner-fixed {\n  position: fixed;\n  bottom: 20px;\n  right: 20px; }\n\nbutton {\n  display: inline-block;\n  margin: 0 5px 0 0;\n  padding: 5px 5px;\n  font-size: 12px;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  cursor: pointer;\n  min-width: 27px;\n  color: white;\n  background-color: transparent;\n  border: solid 2px white; }\n\nbutton:hover,\nbutton.hover {\n  background-color: gray;\n  transition: 0.5s; }\n\nbutton:active,\nbutton.active {\n  background-color: gray; }\n\nbutton:focus,\nbutton.focus {\n  outline: none; }\n\n@keyframes appear-opacity {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.card {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n  flex-shrink: 1;\n  min-width: 290px;\n  width: 320px;\n  height: 190px;\n  padding: 5px;\n  margin: 2px;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  background-color: #4da6ff;\n  border-width: 1px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  position: relative; }\n\n.card:hover,\n.card.hover {\n  background-color: #3195cb;\n  transition: 0.5s; }\n\n.card-corner {\n  align-self: flex-end;\n  margin-bottom: 7px;\n  margin-top: 3px;\n  margin-left: 0; }\n\nbutton.card-edit, button.card-delete, button.confirmation-button-yes, button.confirmation-button-no {\n  color: white; }\n\nbutton.card-edit:hover, button.card-delete:hover, button.confirmation-button-yes:hover, button.confirmation-button-no:hover,\nbutton.card-edit.hover,\nbutton.hover.card-delete,\nbutton.hover.confirmation-button-yes,\nbutton.hover.confirmation-button-no {\n  background-color: #8cd98c;\n  transition: 0.5s; }\n\nbutton.card-edit:active, button.card-delete:active, button.confirmation-button-yes:active, button.confirmation-button-no:active,\nbutton.card-edit.active,\nbutton.active.card-delete,\nbutton.active.confirmation-button-yes,\nbutton.active.confirmation-button-no {\n  background-color: #8cd98c; }\n\nbutton.card-delete, button.confirmation-button-yes {\n  background-color: #ffb3b3;\n  font-weight: bolder; }\n\nbutton.card-delete:hover, button.confirmation-button-yes:hover,\nbutton.card-delete.hover,\nbutton.hover.confirmation-button-yes {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.card-delete:active, button.confirmation-button-yes:active,\nbutton.card-delete.active,\nbutton.active.confirmation-button-yes {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\n.label-key {\n  font-weight: bold; }\n\ninput[type=\"text\"] {\n  display: inline-block;\n  margin: 0;\n  font-size: 14px;\n  -webkit-box-shadow: 0 0 0 0 0;\n  -moz-box-shadow: 0 0 0 0 0;\n  box-shadow: 0 0 0 0 0; }\n\ninput[type=\"text\"]:focus,\ninput[type=\"text\"].focus {\n  outline: none; }\n\n.field {\n  padding: 2px;\n  background-color: inherit;\n  color: white;\n  border: none;\n  border-bottom: 1px solid #dcdcdc;\n  transition: 0.3s; }\n\n.field:focus,\n.field.focus {\n  background-color: #4dd2ff;\n  transition: 0.3s; }\n\n.field::-webkit-input-placeholder {\n  color: #cccccc; }\n\n.field:-moz-placeholder {\n  color: #cccccc; }\n\n.field::-ms-input-placeholder {\n  color: #cccccc; }\n\nbutton.contacts-add {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border: solid 10px white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  -webkit-border-radius: 75px;\n  -moz-border-radius: 75px;\n  -ms-border-radius: 75px;\n  border-radius: 75px;\n  background-color: #a6ff4d;\n  color: white;\n  -webkit-box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  -moz-box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  font-size: 32px; }\n\nbutton.contacts-add:hover,\nbutton.contacts-add.hover {\n  -webkit-box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  -moz-box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  transform: translate(2px, 2px);\n  transition: 0.3s; }\n\nbutton.contacts-add:active,\nbutton.contacts-add.active {\n  -webkit-box-shadow: 0 0 0 0 0;\n  -moz-box-shadow: 0 0 0 0 0;\n  box-shadow: 0 0 0 0 0;\n  transform: translate(5px, 5px);\n  transition: 0.2s; }\n\n.header-searchbar {\n  display: block;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  width: 75%;\n  margin: 20px;\n  padding: 10px;\n  border: solid 5px #c9c9c9;\n  transition: border 0.3s; }\n\n.header-searchbar:focus {\n  border: solid 5px #969696; }\n\na {\n  color: white;\n  text-decoration: none;\n  padding: 2px; }\n\na:visited {\n  color: #555555; }\n\na:hover {\n  color: #3195cb;\n  background-color: white;\n  transition: 0.3s; }\n\n.confirmation-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  position: absolute;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-color: rgba(0, 0, 0, 0.5); }\n\n.confirmation-info {\n  text-align: center;\n  font-size: 25px;\n  margin: 15px;\n  font-weight: bolder; }\n\n.confirmation-controls {\n  display: flex;\n  flex-direction: row;\n  justify-content: center; }\n\nbutton.confirmation-button, button.confirmation-button-no, button.confirmation-button-yes {\n  width: 100px;\n  height: 80px;\n  font-size: 20px;\n  -webkit-border-radius: 50px;\n  -moz-border-radius: 50px;\n  -ms-border-radius: 50px;\n  border-radius: 50px; }\n", ""]);
+	exports.push([module.id, "html {\n  box-sizing: border-box;\n  background-color: #EBEBEE;\n  position: relative; }\n\nbody {\n  color: #000033;\n  font-style: normal;\n  font-family: Roboto, sans-serif;\n  font-size: 16px; }\n\n.header-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-around;\n  margin: 0 10px;\n  background-color: #ff944d;\n  padding: 20px;\n  border-top-left-radius: 20px;\n  border-top-right-radius: 20px; }\n\nh1 {\n  color: white; }\n\n.keypair-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin: 5px; }\n\n.contacts-container {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: flex-start;\n  align-items: flex-start;\n  align-content: flex-start;\n  padding: 20px;\n  margin: 0 auto; }\n\n.contacts-container-wrapper {\n  margin-left: 10px;\n  margin-right: 10px;\n  margin-top: 0;\n  background-color: #c1d7d7;\n  min-height: 80vh; }\n\n.contacts-bottomcorner-fixed {\n  position: fixed;\n  bottom: 20px;\n  right: 20px; }\n\nbutton {\n  display: inline-block;\n  margin: 0 5px 0 0;\n  padding: 5px 5px;\n  font-size: 12px;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  cursor: pointer;\n  min-width: 27px;\n  color: white;\n  background-color: transparent;\n  border: solid 2px white; }\n\nbutton:hover,\nbutton.hover {\n  background-color: gray;\n  transition: 0.5s; }\n\nbutton:active,\nbutton.active {\n  background-color: gray; }\n\nbutton:focus,\nbutton.focus {\n  outline: none; }\n\n@keyframes appear-opacity {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n.card {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n  flex-shrink: 1;\n  min-width: 290px;\n  width: 320px;\n  height: 190px;\n  padding: 5px;\n  margin: 2px;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  background-color: #4da6ff;\n  border-width: 1px;\n  border-color: white;\n  color: white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  position: relative; }\n\n.card:hover,\n.card.hover {\n  background-color: #3195cb;\n  transition: 0.5s; }\n\n.card-corner {\n  align-self: flex-end;\n  margin-bottom: 7px;\n  margin-top: 3px;\n  margin-left: 0; }\n\nbutton.card-edit, button.card-delete, button.confirmation-button-yes, button.confirmation-button-no {\n  color: white; }\n\nbutton.card-edit:hover, button.card-delete:hover, button.confirmation-button-yes:hover, button.confirmation-button-no:hover,\nbutton.card-edit.hover,\nbutton.hover.card-delete,\nbutton.hover.confirmation-button-yes,\nbutton.hover.confirmation-button-no {\n  background-color: #8cd98c;\n  transition: 0.5s; }\n\nbutton.card-edit:active, button.card-delete:active, button.confirmation-button-yes:active, button.confirmation-button-no:active,\nbutton.card-edit.active,\nbutton.active.card-delete,\nbutton.active.confirmation-button-yes,\nbutton.active.confirmation-button-no {\n  background-color: #8cd98c; }\n\nbutton.card-delete, button.confirmation-button-yes {\n  background-color: #ffb3b3;\n  font-weight: bolder; }\n\nbutton.card-delete:hover, button.confirmation-button-yes:hover,\nbutton.card-delete.hover,\nbutton.hover.confirmation-button-yes {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\nbutton.card-delete:active, button.confirmation-button-yes:active,\nbutton.card-delete.active,\nbutton.active.confirmation-button-yes {\n  background-color: red;\n  border-color: white;\n  color: white;\n  transition: 0.3s; }\n\n.label-key {\n  font-weight: bold; }\n\ninput[type=\"text\"] {\n  display: inline-block;\n  margin: 0;\n  font-size: 14px;\n  -webkit-box-shadow: 0 0 0 0 0;\n  -moz-box-shadow: 0 0 0 0 0;\n  box-shadow: 0 0 0 0 0; }\n\ninput[type=\"text\"]:focus,\ninput[type=\"text\"].focus {\n  outline: none; }\n\n.field, .field-wrong, .field-wrong:focus,\n.field-wrong.focus {\n  padding: 2px;\n  background-color: inherit;\n  color: white;\n  border: none;\n  border-bottom: 1px solid #dcdcdc;\n  transition: 0.3s; }\n\n.field:focus, .field-wrong:focus,\n.field.focus,\n.focus.field-wrong {\n  background-color: #4dd2ff;\n  transition: 0.3s; }\n\n.field::-webkit-input-placeholder, .field-wrong::-webkit-input-placeholder, .field-wrong:focus::-webkit-input-placeholder,\n.field-wrong.focus::-webkit-input-placeholder {\n  color: #cccccc; }\n\n.field:-moz-placeholder, .field-wrong:-moz-placeholder {\n  color: #cccccc; }\n\n.field::-ms-input-placeholder, .field-wrong::-ms-input-placeholder, .field-wrong:focus::-ms-input-placeholder,\n.field-wrong.focus::-ms-input-placeholder {\n  color: #cccccc; }\n\n.field-wrong {\n  background-color: #ffb3b3; }\n\n.field-wrong:focus,\n.field-wrong.focus {\n  background-color: #ffb3b3; }\n\nbutton.contacts-add {\n  width: 150px;\n  height: 150px;\n  line-height: 75px;\n  padding: 5px;\n  border: solid 10px white;\n  transition: 0.3s;\n  animation: appear-opacity 0.75s;\n  -webkit-border-radius: 75px;\n  -moz-border-radius: 75px;\n  -ms-border-radius: 75px;\n  border-radius: 75px;\n  background-color: #a6ff4d;\n  color: white;\n  -webkit-box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  -moz-box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  box-shadow: 5px 5px 0 0 rgba(64, 64, 64, 0.33);\n  font-size: 32px; }\n\nbutton.contacts-add:hover,\nbutton.contacts-add.hover {\n  -webkit-box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  -moz-box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  box-shadow: 3px 3px 0 0 rgba(64, 64, 64, 0.33);\n  transform: translate(2px, 2px);\n  transition: 0.3s; }\n\nbutton.contacts-add:active,\nbutton.contacts-add.active {\n  -webkit-box-shadow: 0 0 0 0 0;\n  -moz-box-shadow: 0 0 0 0 0;\n  box-shadow: 0 0 0 0 0;\n  transform: translate(5px, 5px);\n  transition: 0.2s; }\n\n.header-searchbar {\n  display: block;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  width: 75%;\n  margin: 20px;\n  padding: 10px;\n  border: solid 5px #c9c9c9;\n  transition: border 0.3s; }\n\n.header-searchbar:focus {\n  border: solid 5px #969696; }\n\na {\n  color: white;\n  text-decoration: none;\n  padding: 2px; }\n\na:visited {\n  color: #555555; }\n\na:hover {\n  color: #3195cb;\n  background-color: white;\n  transition: 0.3s; }\n\n.confirmation-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  position: absolute;\n  -webkit-border-radius: 10px;\n  -moz-border-radius: 10px;\n  -ms-border-radius: 10px;\n  border-radius: 10px;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  z-index: 10;\n  background-color: rgba(0, 0, 0, 0.5); }\n\n.confirmation-info {\n  text-align: center;\n  font-size: 25px;\n  margin: 15px;\n  font-weight: bolder; }\n\n.confirmation-controls {\n  display: flex;\n  flex-direction: row;\n  justify-content: center; }\n\nbutton.confirmation-button, button.confirmation-button-no, button.confirmation-button-yes {\n  width: 100px;\n  height: 80px;\n  font-size: 20px;\n  -webkit-border-radius: 50px;\n  -moz-border-radius: 50px;\n  -ms-border-radius: 50px;\n  border-radius: 50px; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports) {
 
 	/*
@@ -24534,7 +24629,7 @@
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -24786,7 +24881,7 @@
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {
@@ -26557,10 +26652,10 @@
 	
 	}).call(this);
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(222)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(223)(module)))
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {

@@ -108,6 +108,7 @@ export default class Card extends PureComponent {
                 caption="Phone"
                 edit={this.state.edit} 
                 text={this.state.phone}
+                type= "tel" 
                 placeholder="+37129123457"
                 onChange={ txt=>{ this.state.phone = txt }}/>
             <Entry 

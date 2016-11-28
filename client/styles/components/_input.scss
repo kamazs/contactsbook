@@ -32,3 +32,12 @@ input[type="text"].focus {
     color: #cccccc;
 }
 
+.field-wrong {
+    @extend .field;
+    background-color: #ffb3b3;
+}
+.field-wrong:focus,
+.field-wrong.focus {
+    @extend .field;
+    background-color: #ffb3b3;
+}

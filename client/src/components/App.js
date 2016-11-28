@@ -63,7 +63,7 @@ export default class App extends Component {
     }
 
     render(){
-        let list = [];//[<NewCard key="new" create={ContactsActions.create}/>];
+        let list = [];
         for (let key in this.state.contacts){
             let obj = this.state.contacts[key];
             list.push(
