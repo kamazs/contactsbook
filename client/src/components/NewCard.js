@@ -29,7 +29,7 @@ export default class NewCard extends Card {
 
     render(){
         if (!this.state.edit){
-            return <button className="new" onClick={this.onClick}> +Add</button>
+            return <button key="add" className="contacts-add" onClick={this.onClick}> +Add</button>
         }
         return super.render();
     }

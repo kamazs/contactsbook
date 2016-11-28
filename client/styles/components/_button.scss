@@ -3,12 +3,26 @@ button {
     margin: 0 5px 0 0;
     padding: 5px 5px;
     font-size: 12px;
-    box-shadow: none;
-    border-radius: 10px;
+    @include border-radius( $default-border-radius);
     cursor: pointer;
     min-width: 27px;
+    color: $default-accent-color;
+    background-color: rgba(0,0,0,0);
+    border: solid 2px $default-accent-color;
 }
 
-button:focus {
+button:hover,
+button.hover {
+    background-color: gray;
+    transition: 0.5s;
+}
+
+button:active,
+button.active {
+    background-color: gray;
+}
+
+button:focus,
+button.focus {
     outline: none;
 }

@@ -4,3 +4,15 @@
     -ms-border-radius: $radius;
     border-radius: $radius;
 }
+
+@mixin box-shadow($offsetX, $offsetY, $blur, $color, $inset: false){
+    @if $inset==false {
+        -webkit-box-shadow: $offsetX $offsetY $blur 0 $color; 
+        -moz-box-shadow: $offsetX $offsetY $blur 0 $color;
+        box-shadow: $offsetX $offsetY $blur 0 $color;
+    } @else {
+        -webkit-box-shadow: inset $offsetX $offsetY $blur 0 $color;
+        -moz-box-shadow: inset $offsetX $offsetY $blur 0 $color;
+        box-shadow: inset $offsetX $offsetY $blur 0 $color;         
+    }
+}

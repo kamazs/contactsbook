@@ -1,0 +1,29 @@
+$addbutton-primary-color: #a6ff4d;
+$addbutton-accent-color: white;
+
+button.contacts-add {
+    width: 150px;
+    height: 150px;
+    line-height: 75px;
+    padding: 5px;
+    border: solid 10px $addbutton-accent-color;
+    transition: 0.3s;
+    animation: appear-opacity 0.75s;
+    @include border-radius( 75px );
+    background-color: $addbutton-primary-color;
+    color: $addbutton-accent-color;
+    @include box-shadow( 5px, 5px, 0, rgba(64,64,64,0.33) );
+    font-size: 32px;
+}
+button.contacts-add:hover,
+button.contacts-add.hover {
+    @include box-shadow( 3px, 3px, 0, rgba(64,64,64,0.33) );
+    transform: translate(2px, 2px);
+    transition: 0.3s;
+}
+button.contacts-add:active,
+button.contacts-add.active {
+    @include box-shadow( 0, 0, 0, 0 );
+    transform: translate(5px, 5px);
+    transition: 0.2s;
+}

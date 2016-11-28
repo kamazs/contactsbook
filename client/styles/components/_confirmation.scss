@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     position: absolute;
-    border-radius: 10px;
+    @include border-radius( $default-border-radius );
     top: 0;
     left: 0;
     width: 100%;
@@ -25,18 +25,20 @@
     justify-content: center;
 }
 
-button.confirmation-button-no {
-    @extend button.tools;
+button.confirmation-button {
     width: 100px;
     height: 80px;
     font-size: 20px;
-    border-radius: 50px;
+    @include border-radius( 50px );
+}
+
+button.confirmation-button-no {
+    @extend button.card-edit;
+    @extend button.confirmation-button;
+    
 }
 
 button.confirmation-button-yes {
-    @extend button.delete;
-    width: 100px;
-    height: 80px;
-    font-size: 20px;
-    border-radius: 50px;
+    @extend button.card-delete;
+    @extend button.confirmation-button;
 }

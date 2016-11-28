@@ -75,7 +75,7 @@ export default class App extends Component {
             <div className="app-container">
                 <div className="header-container">
                     <h1>CRUD CONTACTS BOOK</h1>
-                    <input className="searchbar" type="text" onChange={this.onFilter} placeholder="Start typing here to filter contacts..."/>
+                    <input className="header-searchbar" type="text" onChange={this.onFilter} placeholder="Start typing here to filter contacts..."/>
                 </div>
                 <div className="contacts-container-wrapper">
                     <div className="contacts-container">
@@ -83,7 +83,7 @@ export default class App extends Component {
                     </div>
                 </div>
                 <div className="contacts-bottomcorner-fixed">
-                    <NewCard key="new" create={ContactsActions.create}/>
+                    <NewCard create={ContactsActions.create}/>
                 </div>
             </div>
             

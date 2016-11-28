@@ -1,5 +1,6 @@
-$card-bg-color: #4da6ff;//#6ABAE6;
-$card-hover-bg-color: #3195cb;
+$card-primary-color: #4da6ff;//#6ABAE6;
+$card-secondary-color: #3195cb;
+$card-accent-color: white;
 
 @keyframes appear-opacity {
     from {opacity: 0}
@@ -16,11 +17,11 @@ $card-hover-bg-color: #3195cb;
     height: 190px;
     padding: 5px;
     margin: 2px;
-    border-radius: 15px;
-    background-color: $card-bg-color;
+    @include border-radius( $default-border-radius );
+    background-color: $card-primary-color;
     border-width: 1px;
-    border-color: white;
-    color: white;
+    border-color: $card-accent-color;
+    color: $card-accent-color;
     transition: 0.3s;
     animation: appear-opacity 0.75s;
     position: relative;
@@ -28,7 +29,7 @@ $card-hover-bg-color: #3195cb;
 
 .card:hover,
 .card.hover {
-    background-color: $card-hover-bg-color;
+    background-color: $card-secondary-color;
     transition: 0.5s;
 }
 
@@ -40,95 +41,41 @@ $card-hover-bg-color: #3195cb;
 }
 
 $tools-color-normal: white;
-$tools-color-hover: #b3e6b3;
+$tools-color-hover: #8cd98c;
 $tools-color-active: #8cd98c;
 
-button.tools {
+button.card-edit {
     color: $tools-color-normal;
-    background-color: rgba(0,0,0,0);
-    border: solid 2px $tools-color-normal;
-    border-radius: 20px;
 }
-button.tools:hover,
-button.tools.hover {
+button.card-edit:hover,
+button.card-edit.hover {
     background-color: $tools-color-hover;
     transition: 0.5s;
 }
-button.tools:active,
-button.tools.active {
+button.card-edit:active,
+button.card-edit.active {
     background-color: $tools-color-active;
 }
 
-button.delete {
-    @extend button.tools;
+button.card-delete {
+    @extend button.card-edit;
     background-color: #ffb3b3;
     font-weight: bolder;
 }
-button.delete:hover,
-button.delete.hover {
+button.card-delete:hover,
+button.card-delete.hover {
     background-color: red;
     border-color: white;
     color: white;
     transition: 0.3s;
 }
-button.delete:active,
-button.delete.active {
+button.card-delete:active,
+button.card-delete.active {
     background-color: red;
     border-color: white;
     color: white;
     transition: 0.3s;
 }
-
-$new-color-normal: #e5e5e5;
-$new-color-hover: white;
-$new-color-active: white;
-
-button.new {
-    width: 150px;
-    height: 150px;
-    line-height: 75px;
-    padding: 5px;
-    border: solid 10px $new-color-normal;
-    transition: 0.3s;
-    animation: appear-opacity 0.75s;
-    border-radius: 75px;
-    background-color: #a6ff4d;
-    color: $new-color-normal;
-    box-shadow: 5px 5px 0 0 rgba(64,64,64,0.33);
-    font-size: 32px;
-}
-button.new:hover,
-button.new.hover {
-    box-shadow: 3px 3px 0 0 rgba(64,64,64,0.33);
-    transform: translate(2px, 2px);
-    transition: 0.3s;
-    border-color: $new-color-hover;
-    color: $new-color-hover;
-}
-button.new:active,
-button.new.active {
-    box-shadow: none;
-    transform: translate(5px, 5px);
-    transition: 0.2s;
-    border-color: $new-color-active;
-    color: $new-color-active;
-}
-
-
-button.new {
-    width: 150px;
-    height: 150px;
-    line-height: 75px;
-    padding: 5px;
-    border-width: 10px;
-    border-color: white;
-    color: white;
-    transition: 0.3s;
-    animation: appear-opacity 0.75s;
-    border-radius: 75px;
-    background-color: #a6ff4d;
-}
-
 .label-key {
     font-weight: bold;
 }
