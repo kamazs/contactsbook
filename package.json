@@ -12,6 +12,14 @@
   "author": "Mārtiņš Ceplis",
   "license": "ISC",
   "devDependencies": {
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "babel-loader": "^6.2.8",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "image-size": "^0.5.0",
+    "mysql": "^2.12.0",
     "axios": "^0.15.2",
     "babel-core": "^6.18.2",
     "babel-plugin-transform-react-jsx": "^6.8.0",
@@ -25,24 +33,11 @@
     "node-sass": "^3.13.0",
     "nodemon": "^1.11.0",
     "orm": "^3.1.0",
-    "q-orm": "0.0.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-tools": "^0.13.3",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
-  },
-  "dependencies": {
-    "babel-loader": "^6.2.8",
-    "body-parser": "^1.15.2",
-    "dropzone": "^4.3.0",
-    "express": "^4.14.0",
-    "express-fileupload": "0.0.5",
-    "flux": "^3.1.0",
-    "image-size": "^0.5.0",
-    "mysql": "^2.12.0",
-    "resize-crop": "0.0.3"
+    "webpack": "^1.13.3"
   }
 }
